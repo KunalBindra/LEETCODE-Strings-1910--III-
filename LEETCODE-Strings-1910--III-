@@ -1,0 +1,36 @@
+class Solution {
+    public Boolean check(Stack<Character> st, String part,int n)
+    {
+        Stack<Character> tst=new Stack<>();
+        tst.addAll(st);
+        for(int idx=n-1;idx>=0;idx--)
+        {
+            if(tst.peek()!=part.charAt(idx)) return false;
+            tst.pop();
+
+        }
+        return true;
+    }
+    public String removeOccurrences(String s, String part) {
+        int n=part.length();
+        int m=s.length();
+        Stack<Character> st=new Stack<>();
+        for(int i=0;i<m;i++)
+        {
+            st.push(s.charAt(i));
+            if(st.size()>=n && check(st,part,n))
+            {
+                for(int j=0;j<n;j++)
+                {
+                    st.pop();
+                }
+            }
+        }
+        StringBuilder result=new StringBuilder();
+        while(!st.isEmpty())
+        {
+            result.append(st.pop());
+        }
+        return result.reverse().toString();
+    }
+}
